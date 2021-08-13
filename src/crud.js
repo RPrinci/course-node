@@ -7,14 +7,14 @@ app.use(express.json());
 
 const products = [];
 
-// add
+// create
 app.post('/products', (request, response) => {
   const { name, price } = request.body;
 
-  const product = {id: uuid(), name, price};
+  const product = { id: uuid(), name, price };
 
   products.push(product);
-  
+
   return response.json(product);
 });
 
@@ -22,7 +22,7 @@ app.post('/products', (request, response) => {
 app.get('/products', (request, response) => {
   const { name } = request.query;
 
-  const results = name 
+  const results = name
   ? products.filter(prod => prod.name === name)
   : products;
 
@@ -34,9 +34,9 @@ app.get('/products/:id', (request, response) => {
   const { id } = request.params;
 
   const productIndex = products.findIndex(prod => prod.id === id);
-  
+
   if (productIndex < 0) {
-    return response.status(400).json({ error: "Product not found"});
+    return response.status(404).json({ error: "Product not found" });
   }
 
   const product = products[productIndex];
@@ -50,9 +50,9 @@ app.put('/products/:id', (request, response) => {
   const { name, price } = request.body;
 
   const productIndex = products.findIndex(prod => prod.id === id);
-  
+
   if (productIndex < 0) {
-    return response.status(400).json({ error: "Product not found"});
+    return response.status(404).json({ error: "Product not found" });
   }
 
   const product = {
@@ -73,7 +73,7 @@ app.delete('/products/:id', (request, response) => {
   const productIndex = products.findIndex(prod => prod.id === id);
   
   if (productIndex < 0) {
-    return response.status(400).json({ error: "Product not found"});
+    return response.status(404).json({ error: "Product not found"});
   }
 
   products.splice(productIndex, 1);
