@@ -2,15 +2,7 @@ const express = require('express');
 
 const app = express();
 
-app.get('/products', (request, response) => {
-  return response.json([
-    "Product 1",
-    "Product 2",
-    "Product 3",
-    "Product 4"
-  ]);
-});
-
+// create
 app.post('/products', (request, response) => {
   return response.json([
     "Product 1",
@@ -20,6 +12,22 @@ app.post('/products', (request, response) => {
   ]);
 });
 
+// list
+app.get('/products', (request, response) => {
+  return response.json([
+    "Product 1",
+    "Product 2",
+    "Product 3",
+    "Product 4"
+  ]);
+});
+
+// show
+app.get('/products/:id', (request, response) => {
+  return response.json("Product 1");
+});
+
+// update
 app.put('/products/:id', (request, response) => {
   return response.json([
     "Product 10",
@@ -29,6 +37,7 @@ app.put('/products/:id', (request, response) => {
   ]);
 });
 
+// delete
 app.delete('/products/:id', (request, response) => {
   return response.json([
     "Product 2",

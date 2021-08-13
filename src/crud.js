@@ -1,5 +1,4 @@
 const express = require('express');
-// yarn add uuidv4
 const {uuid} = require('uuidv4');
 
 const app = express();
@@ -7,6 +6,17 @@ const app = express();
 app.use(express.json());
 
 const products = [];
+
+// add
+app.post('/products', (request, response) => {
+  const { name, price } = request.body;
+
+  const product = {id: uuid(), name, price};
+
+  products.push(product);
+  
+  return response.json(product);
+});
 
 // list
 app.get('/products', (request, response) => {
@@ -31,17 +41,6 @@ app.get('/products/:id', (request, response) => {
 
   const product = products[productIndex];
 
-  return response.json(product);
-});
-
-// add
-app.post('/products', (request, response) => {
-  const { name, price } = request.body;
-
-  const product = {id: uuid(), name, price};
-
-  products.push(product);
-  
   return response.json(product);
 });
 
